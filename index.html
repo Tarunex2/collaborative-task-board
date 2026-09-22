@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Collaborative Task Board</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div class="app">
+
+        <aside class="sidebar">
+
+            <h2>TaskBoard</h2>
+
+            <p class="sidebar-title">My Boards</p>
+
+            <div class="board-item active" data-board="website">Website Project</div>
+            <div class="board-item" data-board="marketing">Marketing Project</div>
+            <div class="board-item" data-board="personal">Personal Tasks</div> 
+
+            <button class="create-board">
+                + Create Board
+            </button>
+
+        </aside>
+
+
+        <main class="main-content">
+
+         <header class="board-header">
+
+        <div>
+        <h1>Website Project</h1>
+
+              <p>
+            Manage tasks and collaborate with your team.
+             </p>
+            </div>
+
+               <div class="search-box">
+
+        <input
+        type="text"
+        id="searchInput"
+        placeholder="Search tasks...">
+
+       <button id="clearSearch" type="button">×</button>
+
+                 </div>
+
+                 </header>
+
+
+            <section class="board">
+
+                <div class="list">
+
+                    <div class="list-header">
+                        <h2>To Do</h2>
+                        <span class="task-count">3</span>
+                    </div>
+
+                    <div class="task-card">
+                        <h3>Design Homepage</h3>
+                        <p>Create the homepage layout.</p>
+                        <small>Assigned to: Tarun Chuphal</small>
+                    </div>
+
+                    <div class="task-card">
+                        <h3>Create Navbar</h3>
+                        <p>Build responsive navigation.</p>
+                        <small>Assigned to: Yuvika bhat</small>
+                    </div>
+
+                    <div class="task-card">
+                        <h3>Choose Colors</h3>
+                        <p>Select the website color palette.</p>
+                        <small>Assigned to: Rudra Kathait</small>
+                    </div>
+
+                    <button class="add-task">
+                        + Add Task
+                    </button>
+
+                </div>
+
+
+                <div class="list">
+
+                    <div class="list-header">
+                        <h2>In Progress</h2>
+                        <span class="task-count">2</span>
+                    </div>
+
+                    <div class="task-card">
+                        <h3>Build Product Page</h3>
+                        <p>Create product page UI.</p>
+                        <small>Assigned to: Tarun Chuphal</small>
+                    </div>
+
+                    <div class="task-card">
+                        <h3>Login Page</h3>
+                        <p>Design the login screen.</p>
+                        <small>Assigned to: Yuvika bhat</small>
+                    </div>
+
+                    <button class="add-task">
+                        + Add Task
+                    </button>
+
+                </div>
+
+
+                <div class="list">
+
+                    <div class="list-header">
+                        <h2>Done</h2>
+                        <span class="task-count">2</span>
+                    </div>
+
+                    <div class="task-card">
+                        <h3>Project Setup</h3>
+                        <p>Created the basic project structure.</p>
+                        <small>Assigned to: Tarun Chuphal</small>
+                    </div>
+
+                    <div class="task-card">
+                        <h3>Requirements</h3>
+                        <p>Reviewed project requirements.</p>
+                        <small>Assigned to: Rudra Kathait</small>
+                    </div>
+
+                    <button class="add-task">
+                        + Add Task
+                    </button>
+
+                </div>
+
+            </section>
+
+            <div class="pagination">
+    <button id="prevPage">Previous</button>
+    <span id="pageNumber">Page 1</span>
+    <button id="nextPage">Next</button>
+</div>
+
+        </main>
+
+    </div>
+
+    
+    <script src="js/data.js"></script>
+    <script src="js/helpers.js"></script>
+    <script src="js/dragDrop.js"></script>
+    <script src="js/pagination.js"></script>
+    <script src="js/description.js"></script>
+    <script src="js/task.js"></script>
+    <script src="js/list.js"></script>
+    <script src="js/boards.js"></script>
+    <script src="js/search.js"></script>
+    <script src="js/main.js"></script>
+
+</body>
+</html>

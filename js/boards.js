@@ -2,7 +2,6 @@ let currentBoardId = "website";
 
 const boardTitle = document.querySelector(".board-header h1");
 
-// Load Board
 function loadBoard(boardId) {
     const board = boardData[boardId];
 
@@ -11,6 +10,7 @@ function loadBoard(boardId) {
     const boardContainer = document.querySelector(".board");
 
     boardContainer.innerHTML = "";
+
     currentPage = 1;
 
     board.lists.forEach(function (listData) {
@@ -22,18 +22,19 @@ function loadBoard(boardId) {
     showLists();
 }
 
-// Save Board
 function saveCurrentBoard() {
     const lists = document.querySelectorAll(".board > .list");
 
     boardData[currentBoardId].lists =
         Array.from(lists).map(function (list) {
+
             const cards = list.querySelectorAll(".task-card");
 
             return {
                 name: list.querySelector(".list-header h2").textContent,
 
                 tasks: Array.from(cards).map(function (card) {
+
                     const description = card.querySelector("p");
 
                     return {
@@ -57,7 +58,6 @@ function saveCurrentBoard() {
     );
 }
 
-// Switch Board
 function switchBoard(boardItem) {
     saveCurrentBoard();
 
@@ -68,17 +68,20 @@ function switchBoard(boardItem) {
     boardItem.classList.add("active");
 
     currentBoardId = boardItem.dataset.board;
-    boardTitle.textContent = boardData[currentBoardId].title;
+
+    boardTitle.textContent =
+        boardData[currentBoardId].title;
 
     loadBoard(currentBoardId);
 }
 
-// Sidebar
 function setupSidebar() {
     document.querySelector(".sidebar").addEventListener(
         "click",
         function (event) {
-            const boardItem = event.target.closest(".board-item");
+
+            const boardItem =
+                event.target.closest(".board-item");
 
             if (boardItem) {
                 switchBoard(boardItem);
@@ -87,71 +90,105 @@ function setupSidebar() {
     );
 }
 
-// Create Board
 function setupCreateBoard() {
     const createBoardButton =
         document.querySelector(".create-board");
 
-    createBoardButton.addEventListener("click", function () {
-        if (document.querySelector(".board-form")) return;
+    createBoardButton.addEventListener(
+        "click",
+        function () {
 
-        const { form, inputs, submitBtn } = buildForm(
-            "board-form",
-            ["Enter board name"],
-            "Create"
-        );
-
-        const boardInput = inputs[0];
-
-        createBoardButton.before(form);
-        boardInput.focus();
-
-        submitBtn.addEventListener("click", function () {
-            const boardName = boardInput.value.trim();
-
-            if (boardName === "") {
-                alert("Please enter board name");
+            if (document.querySelector(".board-form")) {
                 return;
             }
 
-            const boardId = "board_" + Date.now();
+            const { form, inputs, submitBtn } = buildForm(
+                "board-form",
+                ["Enter board name"],
+                "Create"
+            );
 
-            // Create new board with default lists
-            boardData[boardId] = {
-                title: boardName,
+            const boardInput = inputs[0];
 
-                lists: [
-                    {
-                        name: "To Do",
-                        tasks: []
-                    },
-                    {
-                        name: "In Progress",
-                        tasks: []
-                    },
-                    {
-                        name: "Done",
-                        tasks: []
+            createBoardButton.before(form);
+
+            boardInput.focus();
+
+            submitBtn.addEventListener(
+                "click",
+                function () {
+
+                    const boardName =
+                        boardInput.value.trim();
+
+                    if (boardName === "") {
+                        alert("Please enter board name");
+                        return;
                     }
-                ]
-            };
 
-            const boardItem = el(
-                "div",
-                "board-item",
-                boardName
+                    const boardId =
+                        "board_" + Date.now();
+
+                    boardData[boardId] = {
+                        title: boardName,
+
+                        lists: [
+                            {
+                                name: "To Do",
+                                tasks: []
+                            },
+                            {
+                                name: "In Progress",
+                                tasks: []
+                            },
+                            {
+                                name: "Done",
+                                tasks: []
+                            }
+                        ]
+                    };
+
+                    const boardItem = el(
+                        "div",
+                        "board-item",
+                        boardName
+                    );
+
+                    boardItem.dataset.board = boardId;
+
+                    form.replaceWith(boardItem);
+
+                    localStorage.setItem(
+                        "taskBoardData",
+                        JSON.stringify(boardData)
+                    );
+
+                    switchBoard(boardItem);
+                }
             );
-
-            boardItem.dataset.board = boardId;
-
-            form.replaceWith(boardItem);
-
-            localStorage.setItem(
-                "taskBoardData",
-                JSON.stringify(boardData)
-            );
-
-            switchBoard(boardItem);
-        });
-    });
+        }
+    );
 }
+
+
+/* Sidebar Toggle */
+
+const toggleSidebar =
+    document.querySelector("#toggleSidebar");
+
+const sidebarContainer =
+    document.querySelector(".sidebar-container");
+
+toggleSidebar.addEventListener(
+    "click",
+    function () {
+
+        sidebarContainer.classList.toggle("collapsed");
+
+        if (sidebarContainer.classList.contains("collapsed")) {
+            toggleSidebar.textContent = "☰";
+        } else {
+            toggleSidebar.textContent = "☰";
+        }
+    }
+);

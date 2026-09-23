@@ -1,3 +1,7 @@
+/* =========================
+   RESET & BASE
+========================= */
+
 * {
     margin: 0;
     padding: 0;
@@ -11,35 +15,66 @@ body {
     overflow-x: hidden;
 }
 
+button,
+input {
+    font-family: inherit;
+}
+
+button {
+    cursor: pointer;
+}
+
 .app {
     display: flex;
     min-height: 100vh;
 }
 
-/* Sidebar */
+
+/* =========================
+   SIDEBAR
+========================= */
+
+.sidebar-container {
+    position: relative;
+    width: 240px;
+    flex-shrink: 0;
+    transition: width 0.25s ease;
+}
 
 .sidebar {
     width: 240px;
-    flex-shrink: 0;
+    height: 100%;
+    padding: 25px 15px;
     background: crimson;
     color: white;
-    padding: 25px 15px;
+    overflow: hidden;
+    transition: width 0.25s ease, padding 0.25s ease;
 }
 
-.sidebar h2 {
+.sidebar-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
     margin-bottom: 35px;
+    white-space: nowrap;
+}
+
+.sidebar-header h2 {
+    margin: 0;
 }
 
 .sidebar-title {
     font-size: 13px;
     margin-bottom: 10px;
+    white-space: nowrap;
 }
 
 .board-item {
     padding: 12px;
-    border-radius: 6px;
     margin-bottom: 8px;
+    border-radius: 6px;
     cursor: pointer;
+    white-space: nowrap;
 }
 
 .board-item:hover,
@@ -53,10 +88,50 @@ body {
     margin-top: 20px;
     border: none;
     border-radius: 6px;
-    cursor: pointer;
 }
 
-/* Main */
+.sidebar-container.collapsed {
+    width: 50px;
+}
+
+.sidebar-container.collapsed .sidebar {
+    width: 50px;
+    padding: 25px 9px;
+}
+
+.sidebar-container.collapsed .sidebar-header h2,
+.sidebar-container.collapsed .sidebar-title,
+.sidebar-container.collapsed .board-item,
+.sidebar-container.collapsed .create-board {
+    opacity: 0;
+    pointer-events: none;
+}
+
+#toggleSidebar {
+    position: absolute;
+    top: 22px;
+    right: 7px;
+    z-index: 10;
+    width: 38px;
+    height: 38px;
+    border: none;
+    border-radius: 6px;
+    background: crimson;
+    color: white;
+    font-size: 23px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#toggleSidebar:hover {
+    background: darkred;
+}
+
+
+/* =========================
+   MAIN CONTENT
+========================= */
 
 .main-content {
     flex: 1;
@@ -73,8 +148,8 @@ body {
 }
 
 .board-header h1 {
-    font-size: 30px;
     margin-bottom: 8px;
+    font-size: 30px;
     text-decoration: underline;
 }
 
@@ -82,21 +157,28 @@ body {
     color: black;
 }
 
-/* Board */
+
+/* =========================
+   BOARD & LISTS
+========================= */
 
 .board {
-    display: flex;
+    display: grid;
+    grid-template-columns: repeat(
+        auto-fit,
+        minmax(300px, 1fr)
+    );
     gap: 20px;
-    align-items: flex-start;
     width: 100%;
+    align-items: start;
 }
 
 .list {
-    width: 300px;
-    min-width: 300px;
+    width: 100%;
+    min-width: 0;
     min-height: 400px;
-    background: #e5e7eb;
     padding: 15px;
+    background: #e5e7eb;
     border-radius: 10px;
 }
 
@@ -122,20 +204,23 @@ body {
 }
 
 .list-header span {
-    background: gray;
     padding: 4px 9px;
+    background: gray;
     border-radius: 20px;
     font-size: 13px;
     flex-shrink: 0;
 }
 
-/* Task Cards */
+
+/* =========================
+   TASK CARD
+========================= */
 
 .task-card {
-    background: white;
     padding: 15px;
-    border-radius: 8px;
     margin-bottom: 12px;
+    background: white;
+    border-radius: 8px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08);
     cursor: pointer;
     overflow-wrap: anywhere;
@@ -147,9 +232,9 @@ body {
 }
 
 .task-card.dragging {
-    cursor: grabbing;
     transform: scale(0.97);
     opacity: 0.8;
+    cursor: grabbing;
 }
 
 body.is-dragging,
@@ -158,15 +243,15 @@ body.is-dragging * {
 }
 
 .task-card h3 {
-    font-size: 16px;
     margin-bottom: 8px;
+    font-size: 16px;
     overflow-wrap: anywhere;
 }
 
 .task-card p {
-    font-size: 14px;
-    color: #6b7280;
     margin-bottom: 12px;
+    color: #6b7280;
+    font-size: 14px;
     overflow-wrap: anywhere;
 }
 
@@ -175,7 +260,10 @@ body.is-dragging * {
     overflow-wrap: anywhere;
 }
 
-/* Task Buttons */
+
+/* =========================
+   TASK BUTTONS
+========================= */
 
 .task-buttons {
     display: flex;
@@ -193,11 +281,9 @@ body.is-dragging * {
     border-radius: 6px;
     background: white;
     font-size: 16px;
-    cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
-    flex-shrink: 0;
 }
 
 .edit-btn:hover,
@@ -205,7 +291,10 @@ body.is-dragging * {
     background: #f5f5f5;
 }
 
-/* Forms */
+
+/* =========================
+   FORMS
+========================= */
 
 .task-form,
 .edit-form,
@@ -225,14 +314,15 @@ body.is-dragging * {
 }
 
 .board-form {
-    margin-top: 10px;
     position: relative;
     z-index: 20;
+    margin-top: 10px;
 }
 
 .task-form input,
 .edit-form input,
-.board-form input {
+.board-form input,
+.assigned-autocomplete input {
     width: 100%;
     padding: 8px;
     border: 1px solid #ccc;
@@ -245,7 +335,6 @@ body.is-dragging * {
     padding: 8px 10px;
     border: none;
     border-radius: 5px;
-    cursor: pointer;
 }
 
 .task-form button:first-of-type {
@@ -253,7 +342,8 @@ body.is-dragging * {
     color: white;
 }
 
-.task-form button:last-of-type {
+.task-form button:last-of-type,
+.edit-form button:last-of-type {
     background: #ccc;
     color: #222;
 }
@@ -276,34 +366,38 @@ body.is-dragging * {
     color: #222;
 }
 
-/* Add Task */
+
+/* =========================
+   ADD TASK
+========================= */
 
 .add-task {
     width: 100%;
     padding: 10px;
     border: none;
-    background: transparent;
-    text-align: left;
-    color: #4b5563;
-    cursor: pointer;
     border-radius: 6px;
+    background: transparent;
+    color: #4b5563;
+    text-align: left;
 }
 
 .add-task:hover {
     background: #c4c6c9;
 }
 
-/* Remove List */
+
+/* =========================
+   REMOVE LIST
+========================= */
 
 .remove-list {
-    margin-left: 5px;
     width: 24px;
     height: 24px;
+    margin-left: 5px;
     border: none;
     border-radius: 50%;
     background: crimson;
     color: white;
-    cursor: pointer;
     font-size: 18px;
     line-height: 24px;
     flex-shrink: 0;
@@ -313,7 +407,10 @@ body.is-dragging * {
     background: darkred;
 }
 
-/* Search */
+
+/* =========================
+   SEARCH
+========================= */
 
 .search-box {
     position: relative;
@@ -336,9 +433,9 @@ body.is-dragging * {
     padding: 11px 38px;
     border: 1px solid #ddd;
     border-radius: 10px;
+    outline: none;
     background: white;
     font-size: 14px;
-    outline: none;
 }
 
 .search-box input:focus {
@@ -354,16 +451,15 @@ body.is-dragging * {
     position: absolute;
     right: 10px;
     top: 50%;
-    transform: translateY(-50%);
     width: 24px;
     height: 24px;
     padding: 0;
+    transform: translateY(-50%);
     border: none;
     border-radius: 50%;
     background: transparent;
     color: #888;
     font-size: 18px;
-    cursor: pointer;
     display: none;
 }
 
@@ -372,7 +468,10 @@ body.is-dragging * {
     color: crimson;
 }
 
-/* Assigned Member */
+
+/* =========================
+   ASSIGNED MEMBER
+========================= */
 
 .task-form select,
 .edit-form select {
@@ -380,7 +479,6 @@ body.is-dragging * {
     border: 1px solid #ccc;
     border-radius: 5px;
     background: white;
-    cursor: pointer;
 }
 
 .assigned-autocomplete {
@@ -388,24 +486,17 @@ body.is-dragging * {
     width: 100%;
 }
 
-.assigned-autocomplete input {
-    width: 100%;
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-}
-
 .assigned-suggestions {
     position: absolute;
     top: 100%;
     left: 0;
     right: 0;
+    z-index: 100;
+    display: none;
     background: white;
     border: 1px solid #ddd;
     border-radius: 5px;
     box-shadow: 0 3px 8px rgba(0, 0, 0, 0.12);
-    display: none;
-    z-index: 100;
 }
 
 .assigned-suggestions div {
@@ -417,54 +508,68 @@ body.is-dragging * {
     background: #f1f1f1;
 }
 
-/* Pagination */
+
+/* =========================
+   PAGINATION
+========================= */
 
 .pagination {
     display: flex;
-    justify-content: center;
+    justify-content: flex-end;
     align-items: center;
-    gap: 15px;
-    margin-top: 25px;
-    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 20px;
 }
 
 .pagination button {
-    padding: 8px 15px;
+    width: 38px;
+    height: 34px;
     border: none;
-    border-radius: 5px;
+    border-radius: 6px;
     background: crimson;
     color: white;
-    cursor: pointer;
+    font-size: 20px;
+}
+
+.pagination button:hover {
+    opacity: 0.85;
 }
 
 .pagination button:disabled {
-    background: gray;
+    opacity: 1;
     cursor: not-allowed;
 }
 
-/* Description Overlay */
+#pageNumber {
+    font-weight: 600;
+}
+
+
+/* =========================
+   DESCRIPTION OVERLAY
+========================= */
 
 .description-overlay {
     position: fixed;
     inset: 0;
-    background: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
     display: flex;
     justify-content: center;
     align-items: center;
     padding: 20px;
+    background: rgba(0, 0, 0, 0.5);
     overflow-y: auto;
-    z-index: 1000;
 }
 
 .description-editor {
     width: 750px;
     max-width: 90%;
     max-height: 90vh;
-    overflow: auto;
+    padding: 20px;
     background: white;
     border-radius: 10px;
-    padding: 20px;
     box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+    overflow: auto;
 }
 
 .description-editor-header {
@@ -476,42 +581,42 @@ body.is-dragging * {
 }
 
 .description-editor-header h2 {
-    font-size: 20px;
     margin-bottom: 5px;
+    font-size: 20px;
     overflow-wrap: anywhere;
 }
 
 .description-close {
     border: none;
     background: transparent;
-    font-size: 28px;
-    cursor: pointer;
     color: #555;
-    flex-shrink: 0;
+    font-size: 28px;
 }
 
 .description-close:hover {
     color: crimson;
 }
 
-/* Description Toolbar */
+
+/* =========================
+   DESCRIPTION TOOLBAR
+========================= */
 
 .description-toolbar {
     display: flex;
+    flex-wrap: wrap;
     gap: 6px;
     padding: 10px 0;
     border-top: 1px solid #ddd;
     border-bottom: 1px solid #ddd;
-    flex-wrap: wrap;
 }
 
 .description-toolbar button {
     min-width: 35px;
     height: 32px;
     border: none;
-    background: #f1f1f1;
     border-radius: 5px;
-    cursor: pointer;
+    background: #f1f1f1;
     font-size: 14px;
 }
 
@@ -519,14 +624,17 @@ body.is-dragging * {
     background: #ddd;
 }
 
-/* Description Content */
+
+/* =========================
+   DESCRIPTION CONTENT
+========================= */
 
 .description-content {
+    width: 100%;
     min-height: 300px;
     max-height: 50vh;
-    width: 100%;
-    padding: 15px;
     margin-top: 10px;
+    padding: 15px;
     border: 1px solid #ccc;
     border-radius: 6px;
     outline: none;
@@ -560,7 +668,10 @@ body.is-dragging * {
     overflow: auto;
 }
 
-/* Description Buttons */
+
+/* =========================
+   DESCRIPTION ACTIONS
+========================= */
 
 .description-actions {
     display: flex;
@@ -574,7 +685,6 @@ body.is-dragging * {
     padding: 9px 16px;
     border: none;
     border-radius: 5px;
-    cursor: pointer;
 }
 
 .description-cancel {
@@ -598,11 +708,211 @@ body.is-dragging * {
     display: none;
 }
 
-/* Responsive */
+
+/* =========================
+   OVERLAY EDIT
+========================= */
+
+.overlay-edit-btn {
+    padding: 8px 14px;
+    border: none;
+    border-radius: 6px;
+    background: crimson;
+    color: white;
+}
+
+.overlay-edit-btn:hover {
+    background: darkred;
+}
+
+.overlay-title-input {
+    width: 100%;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 22px;
+    font-weight: bold;
+}
+
+
+/* =========================
+   TASK DETAIL PAGE
+========================= */
+
+.task-detail-page {
+    min-height: 100vh;
+    padding: 40px;
+    background: #f5f6fa;
+}
+
+.task-detail-container {
+    max-width: 900px;
+    margin: auto;
+    padding: 30px;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+}
+
+.task-detail-header {
+    padding-bottom: 20px;
+    margin-bottom: 25px;
+    border-bottom: 1px solid #ddd;
+}
+
+.task-detail-header h1 {
+    margin-bottom: 10px;
+    font-size: 28px;
+    overflow-wrap: anywhere;
+}
+
+.task-detail-header p {
+    margin: 5px 0;
+    color: #666;
+    overflow-wrap: anywhere;
+}
+
+.task-detail-description {
+    min-height: 250px;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background: #fafafa;
+    font-size: 16px;
+    line-height: 1.7;
+    overflow-wrap: anywhere;
+}
+
+.task-detail-description h1 {
+    margin-bottom: 15px;
+    font-size: 28px;
+}
+
+.task-detail-description h2 {
+    margin: 25px 0 10px;
+    font-size: 23px;
+}
+
+.task-detail-description h3 {
+    margin: 20px 0 10px;
+    font-size: 20px;
+}
+
+.task-detail-description p {
+    margin: 10px 0;
+}
+
+.task-detail-description ul,
+.task-detail-description ol {
+    margin: 10px 0;
+    padding-left: 25px;
+}
+
+.task-detail-description hr {
+    margin: 20px 0;
+    border: none;
+    border-top: 1px solid #ddd;
+}
+
+.task-detail-description a {
+    text-decoration: underline;
+}
+
+.task-detail-description img {
+    max-width: 100%;
+    height: auto;
+    margin: 15px 0;
+    border-radius: 8px;
+}
+
+
+/* =========================
+   TASK DETAIL BUTTONS
+========================= */
+
+.task-detail-buttons {
+    display: flex;
+    gap: 10px;
+    margin-top: 25px;
+}
+
+.back-btn,
+.detail-edit-btn,
+.detail-delete-btn {
+    padding: 8px 14px;
+    border: none;
+    border-radius: 6px;
+}
+
+.back-btn,
+.detail-delete-btn {
+    background: crimson;
+    color: white;
+}
+
+.back-btn:hover,
+.detail-delete-btn:hover {
+    background: darkred;
+}
+
+.detail-edit-btn {
+    background: #2563eb;
+    color: white;
+}
+
+
+/* =========================
+   IMAGE CONTROLS
+========================= */
+
+.remove-image-btn {
+    padding: 7px 12px;
+    border: none;
+    border-radius: 6px;
+    background: #ff1744;
+    color: white;
+    font-weight: bold;
+}
+
+.remove-image-btn:hover {
+    background: #ff0033;
+}
+
+.selected-image {
+    outline: 3px solid crimson;
+    outline-offset: 3px;
+}
+
+
+/* =========================
+   TABLET
+========================= */
+
+@media (max-width: 1100px) {
+
+    .board {
+        grid-template-columns: repeat(
+            auto-fit,
+            minmax(280px, 1fr)
+        );
+    }
+}
+
+
+/* =========================
+   SMALL DESKTOP / TABLET
+========================= */
 
 @media (max-width: 900px) {
+
+    .sidebar-container,
     .sidebar {
         width: 200px;
+    }
+
+    .sidebar-container.collapsed,
+    .sidebar-container.collapsed .sidebar {
+        width: 50px;
     }
 
     .main-content {
@@ -619,26 +929,56 @@ body.is-dragging * {
     }
 
     .board {
-        flex-direction: column;
+        grid-template-columns: 1fr;
     }
 
     .list {
         width: 100%;
-        min-width: 0;
     }
 }
 
+
+/* =========================
+   MOBILE
+========================= */
+
 @media (max-width: 600px) {
+
     .app {
         flex-direction: column;
     }
 
+    .sidebar-container,
     .sidebar {
         width: 100%;
+    }
+
+    .sidebar {
+        height: auto;
         padding: 15px;
     }
 
-    .sidebar h2 {
+    .sidebar-container.collapsed {
+        width: 100%;
+        height: 50px;
+    }
+
+    .sidebar-container.collapsed .sidebar {
+        width: 100%;
+        height: 50px;
+        padding: 9px 15px;
+    }
+
+    .sidebar-container.collapsed .sidebar-header {
+        margin: 0;
+    }
+
+    #toggleSidebar {
+        top: 9px;
+        right: 15px;
+    }
+
+    .sidebar-header {
         margin-bottom: 20px;
     }
 
@@ -676,16 +1016,14 @@ body.is-dragging * {
 
     .search-box {
         width: 100%;
-        margin-right: 0;
     }
 
     .board {
+        grid-template-columns: 1fr;
         gap: 15px;
     }
 
     .list {
-        width: 100%;
-        min-width: 0;
         min-height: 300px;
         padding: 12px;
     }
@@ -703,16 +1041,16 @@ body.is-dragging * {
     }
 
     .description-overlay {
-        padding: 10px;
         align-items: flex-start;
+        padding: 10px;
     }
 
     .description-editor {
         width: 100%;
         max-width: 100%;
         max-height: 95vh;
-        padding: 15px;
         margin-top: 10px;
+        padding: 15px;
     }
 
     .description-editor-header h2 {
@@ -735,9 +1073,48 @@ body.is-dragging * {
         flex: 1;
         min-width: 100px;
     }
+
+    .task-detail-page {
+        padding: 20px;
+    }
+
+    .task-detail-container {
+        padding: 20px;
+    }
+
+    .task-detail-header h1 {
+        font-size: 24px;
+    }
+
+    .task-detail-description {
+        padding: 15px;
+        font-size: 15px;
+    }
+
+    .task-detail-description h1 {
+        font-size: 24px;
+    }
+
+    .task-detail-description h2 {
+        font-size: 20px;
+    }
+
+    .task-detail-description h3 {
+        font-size: 18px;
+    }
+
+    .task-detail-buttons {
+        flex-wrap: wrap;
+    }
 }
 
+
+/* =========================
+   SMALL MOBILE
+========================= */
+
 @media (max-width: 400px) {
+
     .main-content {
         padding: 10px;
     }
@@ -763,11 +1140,29 @@ body.is-dragging * {
     }
 
     .pagination button {
-        padding: 7px 10px;
-        font-size: 13px;
+        width: 34px;
+        height: 30px;
+        font-size: 16px;
     }
 
     .description-editor {
         padding: 12px;
+    }
+
+    .task-detail-page {
+        padding: 10px;
+    }
+
+    .task-detail-container {
+        padding: 15px;
+    }
+
+    .task-detail-header h1 {
+        font-size: 21px;
+    }
+
+    .task-detail-description {
+        padding: 12px;
+        font-size: 14px;
     }
 }

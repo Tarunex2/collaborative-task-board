@@ -1,4 +1,3 @@
-
 function el(tag, className, text) {
     const element = document.createElement(tag);
 
@@ -20,6 +19,7 @@ function updateTaskCount(list) {
         list.querySelectorAll(".task-card").length;
 }
 
+
 function buildForm(className, placeholders, submitLabel) {
 
     const form = el("div", className);
@@ -35,15 +35,43 @@ function buildForm(className, placeholders, submitLabel) {
 
     form.append(...inputs, submitBtn, cancelBtn);
 
+
+    // Cancel form
     cancelBtn.addEventListener("click", function () {
+
+        const hasChanges = inputs.some(function (input) {
+            return input.value.trim() !== "";
+        });
+
+        if (hasChanges) {
+
+            const leave = confirm(
+                "Your work is not saved. Are you sure you want to close?"
+            );
+
+            if (!leave) {
+                return;
+            }
+        }
+
         form.remove();
     });
 
+
     form.addEventListener("keydown", function (event) {
+
         if (event.key === "Enter") {
             submitBtn.click();
         }
+
     });
 
-    return { form, inputs, submitBtn, cancelBtn };
+
+    return {
+        form,
+        inputs,
+        submitBtn,
+        cancelBtn
+    };
 }
+

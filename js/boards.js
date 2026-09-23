@@ -116,9 +116,24 @@ function setupCreateBoard() {
 
             const boardId = "board_" + Date.now();
 
+            // Create new board with default lists
             boardData[boardId] = {
                 title: boardName,
-                lists: []
+
+                lists: [
+                    {
+                        name: "To Do",
+                        tasks: []
+                    },
+                    {
+                        name: "In Progress",
+                        tasks: []
+                    },
+                    {
+                        name: "Done",
+                        tasks: []
+                    }
+                ]
             };
 
             const boardItem = el(

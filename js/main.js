@@ -1,5 +1,3 @@
-
-setupPagination();
 setupSidebar();
 setupCreateBoard();
 setupSearch();

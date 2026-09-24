@@ -1,11 +1,21 @@
-function el(tag, className, text) {
-    const element = document.createElement(tag);
+/* =========================
+   CREATE ELEMENT
+========================= */
+
+function el(
+    tag,
+    className = "",
+    text = ""
+) {
+
+    const element =
+        document.createElement(tag);
 
     if (className) {
         element.className = className;
     }
 
-    if (text !== undefined) {
+    if (text) {
         element.textContent = text;
     }
 
@@ -13,65 +23,226 @@ function el(tag, className, text) {
 }
 
 
-// Update the number badge of a list
-function updateTaskCount(list) {
-    list.querySelector(".task-count").textContent =
-        list.querySelectorAll(".task-card").length;
-}
+/* =========================
+   BUILD FORM
+========================= */
+
+function buildForm(
+    className,
+    placeholders,
+    buttonText
+) {
+
+    const form =
+        document.createElement("div");
+
+    form.className =
+        className;
 
 
-function buildForm(className, placeholders, submitLabel) {
+    const inputs =
+        placeholders.map(
+            placeholder => {
 
-    const form = el("div", className);
+                const input =
+                    document.createElement(
+                        "input"
+                    );
 
-    const inputs = placeholders.map(function (placeholder) {
-        const input = el("input");
-        input.placeholder = placeholder;
-        return input;
-    });
+                input.type = "text";
 
-    const submitBtn = el("button", "", submitLabel);
-    const cancelBtn = el("button", "", "Cancel");
+                input.placeholder =
+                    placeholder;
 
-    form.append(...inputs, submitBtn, cancelBtn);
-
-
-    // Cancel form
-    cancelBtn.addEventListener("click", function () {
-
-        const hasChanges = inputs.some(function (input) {
-            return input.value.trim() !== "";
-        });
-
-        if (hasChanges) {
-
-            const leave = confirm(
-                "Your work is not saved. Are you sure you want to close?"
-            );
-
-            if (!leave) {
-                return;
+                return input;
             }
-        }
+        );
 
-        form.remove();
+
+    const submitBtn =
+        document.createElement(
+            "button"
+        );
+
+    submitBtn.type = "button";
+
+    submitBtn.textContent =
+        buttonText;
+
+
+    inputs.forEach(input => {
+
+        form.appendChild(input);
     });
 
 
-    form.addEventListener("keydown", function (event) {
-
-        if (event.key === "Enter") {
-            submitBtn.click();
-        }
-
-    });
+    form.appendChild(
+        submitBtn
+    );
 
 
     return {
         form,
         inputs,
-        submitBtn,
-        cancelBtn
+        submitBtn
     };
 }
 
+
+/* =========================
+   UPDATE TASK COUNT
+========================= */
+
+function updateTaskCount(list) {
+
+    if (!list) {
+        return;
+    }
+
+
+    const count =
+        list.querySelectorAll(
+            ".task-card"
+        ).length;
+
+
+    const countElement =
+        list.querySelector(
+            ".task-count"
+        );
+
+
+    if (countElement) {
+
+        countElement.textContent =
+            count;
+    }
+}
+
+
+/* =========================
+   CUSTOM ALERT
+========================= */
+
+function showCustomAlert(
+    message,
+    title = "Alert"
+) {
+
+    const alertBox =
+        document.querySelector(
+            "#customAlert"
+        );
+
+    const alertTitle =
+        document.querySelector(
+            "#customAlertTitle"
+        );
+
+    const alertMessage =
+        document.querySelector(
+            "#customAlertMessage"
+        );
+
+    const closeButton =
+        document.querySelector(
+            "#customAlertClose"
+        );
+
+
+    if (!alertBox) {
+        return;
+    }
+
+
+    alertTitle.textContent =
+        title;
+
+
+    alertMessage.textContent =
+        message;
+
+
+    alertBox.style.display =
+        "flex";
+
+
+    closeButton.onclick =
+        function (event) {
+
+            event.stopPropagation();
+
+            alertBox.style.display =
+                "none";
+        };
+}
+
+
+/* =========================
+   CUSTOM CONFIRM
+========================= */
+
+function showCustomConfirm(
+    message,
+    onConfirm,
+    onCancel
+) {
+
+    const confirmBox =
+        document.querySelector("#customConfirm");
+
+    const messageBox =
+        document.querySelector("#customConfirmMessage");
+
+    const yesButton =
+        document.querySelector("#customConfirmLeave");
+
+    const noButton =
+        document.querySelector("#customConfirmCancel");
+
+
+    if (
+        !confirmBox ||
+        !messageBox ||
+        !yesButton ||
+        !noButton
+    ) {
+        console.log("Custom confirm elements not found");
+        return;
+    }
+
+
+    messageBox.textContent = message;
+
+    confirmBox.style.display = "flex";
+
+
+    /* YES */
+
+    yesButton.onclick = function (event) {
+
+        event.preventDefault();
+        event.stopPropagation();
+
+        confirmBox.style.display = "none";
+
+        if (typeof onConfirm === "function") {
+            onConfirm();
+        }
+    };
+
+
+    /* NO */
+
+    noButton.onclick = function (event) {
+
+        event.preventDefault();
+        event.stopPropagation();
+
+        confirmBox.style.display = "none";
+
+        if (typeof onCancel === "function") {
+            onCancel();
+        }
+    };
+}

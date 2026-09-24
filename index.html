@@ -18,6 +18,10 @@
 
     <div class="app">
 
+        <!-- =========================
+             SIDEBAR
+        ========================== -->
+
         <div class="sidebar-container">
 
             <aside class="sidebar">
@@ -26,17 +30,25 @@
                     <h2><u>TaskBoard</u></h2>
                 </div>
 
-                <p class="sidebar-title">My Boards</p>
+                <p class="sidebar-title">
+                    My Boards
+                </p>
 
-                <div class="board-item active" data-board="website">
+                <div
+                    class="board-item active"
+                    data-board="website">
                     Website Project
                 </div>
 
-                <div class="board-item" data-board="marketing">
+                <div
+                    class="board-item"
+                    data-board="marketing">
                     Marketing Project
                 </div>
 
-                <div class="board-item" data-board="personal">
+                <div
+                    class="board-item"
+                    data-board="personal">
                     Personal Tasks
                 </div>
 
@@ -46,18 +58,28 @@
 
             </aside>
 
-            <button id="toggleSidebar">☰</button>
+            <button id="toggleSidebar">
+                ☰
+            </button>
 
         </div>
 
 
+        <!-- =========================
+             MAIN CONTENT
+        ========================== -->
+
         <main class="main-content">
+
+            <!-- BOARD HEADER -->
 
             <header class="board-header">
 
                 <div>
 
-                    <h1><u>Website Project</u></h1>
+                    <h1>
+                        <u>Website Project</u>
+                    </h1>
 
                     <p>
                         Manage tasks and collaborate with your team.
@@ -66,40 +88,145 @@
                 </div>
 
 
-                <div class="search-box">
+                <!-- HEADER CONTROLS -->
 
-                    <input
-                        type="text"
-                        id="searchInput"
-                        placeholder="Search tasks...">
+                <div class="header-controls">
 
-                    <button id="clearSearch" type="button">
-                        ×
-                    </button>
+                    <!-- SEARCH -->
+
+                    <div class="search-box">
+
+                        <input
+                            type="text"
+                            id="searchInput"
+                            placeholder="Search tasks...">
+
+                        <button
+                            id="clearSearch"
+                            type="button">
+                            ×
+                        </button>
+
+                    </div>
+
+
+                    <!-- PRIORITY FILTER -->
+
+                    <div class="filter-box">
+
+                        <button
+                            id="priorityFilterBtn"
+                            type="button">
+
+                            <i class="fa-solid fa-bolt"></i>
+
+                            <span>
+                                Priority
+                            </span>
+
+                            <i class="fa-solid fa-chevron-down"></i>
+
+                        </button>
+
+
+                        <div
+                            id="priorityFilterOptions"
+                            class="filter-options">
+
+                            <button data-priority="all">
+                                All Priorities
+                            </button>
+
+                            <button data-priority="Highest">
+
+                                <i class="fa-solid fa-angles-up"></i>
+
+                                Highest
+
+                            </button>
+
+                            <button data-priority="High">
+
+                                <i class="fa-solid fa-caret-up"></i>
+
+                                High
+
+                            </button>
+
+                            <button data-priority="Medium">
+
+                                <i class="fa-solid fa-minus"></i>
+
+                                Medium
+
+                            </button>
+
+                            <button data-priority="Low">
+
+                                <i class="fa-solid fa-caret-down"></i>
+
+                                Low
+
+                            </button>
+
+                            <button data-priority="Lowest">
+
+                                <i class="fa-solid fa-angles-down"></i>
+
+                                Lowest
+
+                            </button>
+
+                            <button data-priority="Hotfix">
+
+                                <i class="fa-solid fa-fire-flame-curved"></i>
+
+                                Hotfix
+
+                            </button>
+
+                        </div>
+
+                    </div>
 
                 </div>
 
             </header>
 
 
+            <!-- =========================
+                 BOARD
+            ========================== -->
+
             <section class="board">
+
+
+                <!-- TO DO -->
 
                 <div class="list">
 
                     <div class="list-header">
 
-                        <h2>To Do</h2>
+                        <h2>
+                            To Do
+                        </h2>
 
-                        <span class="task-count">3</span>
+                        <span class="task-count">
+                            3
+                        </span>
 
                     </div>
 
 
                     <div class="task-card">
 
-                        <h3>Design Homepage</h3>
+                        <h3>
+                            Design Homepage
+                        </h3>
 
-                        <p>Create the homepage layout.</p>
+                        <p>
+                            Create the homepage layout.
+                        </p>
 
                         <small>
                             Assigned to: Tarun Chuphal
@@ -110,9 +237,13 @@
 
                     <div class="task-card">
 
-                        <h3>Create Navbar</h3>
+                        <h3>
+                            Create Navbar
+                        </h3>
 
-                        <p>Build responsive navigation.</p>
+                        <p>
+                            Build responsive navigation.
+                        </p>
 
                         <small>
                             Assigned to: Yuvika bhat
@@ -123,9 +254,13 @@
 
                     <div class="task-card">
 
-                        <h3>Choose Colors</h3>
+                        <h3>
+                            Choose Colors
+                        </h3>
 
-                        <p>Select the website color palette.</p>
+                        <p>
+                            Select the website color palette.
+                        </p>
 
                         <small>
                             Assigned to: Rudra Kathait
@@ -141,22 +276,32 @@
                 </div>
 
 
+                <!-- IN PROGRESS -->
+
                 <div class="list">
 
                     <div class="list-header">
 
-                        <h2>In Progress</h2>
+                        <h2>
+                            In Progress
+                        </h2>
 
-                        <span class="task-count">2</span>
+                        <span class="task-count">
+                            2
+                        </span>
 
                     </div>
 
 
                     <div class="task-card">
 
-                        <h3>Build Product Page</h3>
+                        <h3>
+                            Build Product Page
+                        </h3>
 
-                        <p>Create product page UI.</p>
+                        <p>
+                            Create product page UI.
+                        </p>
 
                         <small>
                             Assigned to: Tarun Chuphal
@@ -167,9 +312,13 @@
 
                     <div class="task-card">
 
-                        <h3>Login Page</h3>
+                        <h3>
+                            Login Page
+                        </h3>
 
-                        <p>Design the login screen.</p>
+                        <p>
+                            Design the login screen.
+                        </p>
 
                         <small>
                             Assigned to: Yuvika bhat
@@ -185,22 +334,32 @@
                 </div>
 
 
+                <!-- DONE -->
+
                 <div class="list">
 
                     <div class="list-header">
 
-                        <h2>Done</h2>
+                        <h2>
+                            Done
+                        </h2>
 
-                        <span class="task-count">2</span>
+                        <span class="task-count">
+                            2
+                        </span>
 
                     </div>
 
 
                     <div class="task-card">
 
-                        <h3>Project Setup</h3>
+                        <h3>
+                            Project Setup
+                        </h3>
 
-                        <p>Created the basic project structure.</p>
+                        <p>
+                            Created the basic project structure.
+                        </p>
 
                         <small>
                             Assigned to: Tarun Chuphal
@@ -211,9 +370,13 @@
 
                     <div class="task-card">
 
-                        <h3>Requirements</h3>
+                        <h3>
+                            Requirements
+                        </h3>
 
-                        <p>Reviewed project requirements.</p>
+                        <p>
+                            Reviewed project requirements.
+                        </p>
 
                         <small>
                             Assigned to: Rudra Kathait
@@ -230,29 +393,123 @@
 
             </section>
 
-           <div class="pagination">
-    <button id="prevPage">‹‹</button>
-
-    <span id="pageNumber">Page 1</span>
-
-    <button id="nextPage">››</button>
-            </div>
-
         </main>
 
     </div>
 
 
+    <!-- =========================
+         JAVASCRIPT FILES
+    ========================== -->
+
     <script src="js/data.js"></script>
+
     <script src="js/helpers.js"></script>
+
     <script src="js/dragDrop.js"></script>
-    <script src="js/pagination.js"></script>
+
     <script src="js/description.js"></script>
+
     <script src="js/task.js"></script>
+
     <script src="js/list.js"></script>
+
     <script src="js/boards.js"></script>
+
     <script src="js/search.js"></script>
+
+    <script src="js/filter.js"></script>
+
     <script src="js/main.js"></script>
+
+
+    <!-- =========================
+         CUSTOM ALERT
+    ========================== -->
+
+    <div
+        id="customAlert"
+        class="custom-alert">
+
+        <div class="custom-alert-box">
+
+
+            <div class="custom-alert-icon">
+
+                <i class="fa-solid fa-circle-exclamation"></i>
+
+            </div>
+
+
+            <div class="custom-alert-content">
+
+                <h3 id="customAlertTitle">
+                    Alert
+                </h3>
+
+                <p id="customAlertMessage">
+                    Something went wrong.
+                </p>
+
+            </div>
+
+
+            <button id="customAlertClose">
+                OK
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- =========================
+         CUSTOM CONFIRM
+    ========================== -->
+
+    <div
+        id="customConfirm"
+        class="custom-alert">
+
+        <div class="custom-alert-box">
+
+
+            <div class="custom-alert-icon">
+
+                <i class="fa-solid fa-triangle-exclamation"></i>
+
+            </div>
+
+
+            <div class="custom-alert-content">
+
+                <h3 id="customConfirmTitle">
+                    Unsaved Changes
+                </h3>
+
+                <p id="customConfirmMessage">
+                    Your work is not saved.
+                    Are you sure you want to close?
+                </p>
+
+            </div>
+
+
+            <div class="custom-confirm-buttons">
+
+                <button id="customConfirmLeave">
+                    Yes
+                </button>
+
+                <button id="customConfirmCancel">
+                    No
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
 
 </body>
 
